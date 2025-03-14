@@ -20,6 +20,7 @@ const getCuisineById = async (req, res) => {
     }
     res.status(200).json(cuisine);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error fetching cuisine' });
   }
 };
@@ -31,6 +32,7 @@ const createCuisine = async (req, res) => {
     const newCuisine = await Cuisine.create({ name, image_url });
     res.status(201).json(newCuisine);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error creating cuisine' });
   }
 };
@@ -51,6 +53,7 @@ const updateCuisine = async (req, res) => {
     await cuisine.save();
     res.status(200).json(cuisine);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error updating cuisine' });
   }
 };
@@ -65,6 +68,7 @@ const deleteCuisine = async (req, res) => {
     await cuisine.destroy();
     res.status(200).json({ message: 'Cuisine deleted successfully' });
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error deleting cuisine' });
   }
 };

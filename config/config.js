@@ -1,7 +1,7 @@
 module.exports = {
     development: {
       username: 'root',
-      password: '9828807288',
+      password: 'Root@12345',
       database: 'recipe_nest',
       host: 'localhost',
       dialect: 'mysql',

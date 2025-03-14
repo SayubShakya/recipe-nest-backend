@@ -8,10 +8,10 @@ const authenticate = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+    req.user = jwt.verify(token, process.env.JWT_SECRET);
     next();
   } catch (err) {
+    console.error(err)
     res.status(400).json({ message: 'Invalid token' });
   }
 };

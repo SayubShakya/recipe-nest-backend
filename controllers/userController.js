@@ -3,9 +3,10 @@ const { User, Role } = require('../models');
 // Get all users
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.findAll({ include: Role });
+    const users = await User.findAll({ include: {model: Role, as: 'role',attributes: ['name']},attributes: { exclude: ['created_date', 'updated_date', 'is_active', 'role_id', 'password']}});
     res.status(200).json(users);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error fetching users' });
   }
 };
@@ -13,12 +14,13 @@ const getAllUsers = async (req, res) => {
 // Get a single user by ID
 const getUserById = async (req, res) => {
   try {
-    const user = await User.findByPk(req.params.id, { include: Role });
+    const user = await User.findByPk(req.params.id, {include: {model: Role, as: 'role',attributes: ['name']},attributes: { exclude: ['created_date', 'updated_date', 'is_active', 'role_id','password']}});
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
     res.status(200).json(user);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error fetching user' });
   }
 };
@@ -30,6 +32,7 @@ const createUser = async (req, res) => {
     const newUser = await User.create({ first_name, last_name, email, password, phone_number, role_id });
     res.status(201).json(newUser);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error creating user' });
   }
 };
@@ -53,6 +56,7 @@ const updateUser = async (req, res) => {
     await user.save();
     res.status(200).json(user);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error updating user' });
   }
 };
@@ -67,6 +71,7 @@ const deleteUser = async (req, res) => {
     await user.destroy();
     res.status(200).json({ message: 'User deleted successfully' });
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error deleting user' });
   }
 };

@@ -15,13 +15,16 @@ db.Recipe = require('./recipe')(sequelize, Sequelize);
 db.Favorite = require('./favorite')(sequelize, Sequelize);
 
 // Set associations
-db.User.hasMany(db.Recipe, { foreignKey: 'recipe_by' });
-db.Recipe.belongsTo(db.User, { foreignKey: 'recipe_by' });
+db.User.hasMany(db.Recipe, {foreignKey: 'recipe_by'});
 
-db.Cuisine.hasMany(db.Recipe, { foreignKey: 'cuisine' });
-db.Recipe.belongsTo(db.Cuisine, { foreignKey: 'cuisine' });
+db.Recipe.belongsTo(db.User, {foreignKey: 'recipe_by'});
 
-db.User.hasMany(db.Favorite, { foreignKey: 'user_id' });
-db.Recipe.hasMany(db.Favorite, { foreignKey: 'recipe_id' });
+db.Cuisine.hasMany(db.Recipe, {foreignKey: 'cuisine'});
+db.Recipe.belongsTo(db.Cuisine, {foreignKey: 'cuisine'});
+
+db.User.hasMany(db.Favorite, {foreignKey: 'user_id'});
+db.Recipe.hasMany(db.Favorite, {foreignKey: 'recipe_id'});
+
+db.User.belongsTo(db.Role, {foreignKey: 'role_id', as: 'role'});
 
 module.exports = db;

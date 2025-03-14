@@ -6,6 +6,7 @@ const getAllFavorites = async (req, res) => {
     const favorites = await Favorite.findAll({ include: [User, Recipe] });
     res.status(200).json(favorites);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error fetching favorites' });
   }
 };
@@ -19,6 +20,7 @@ const getFavoriteById = async (req, res) => {
     }
     res.status(200).json(favorite);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error fetching favorite' });
   }
 };
@@ -30,6 +32,7 @@ const addFavorite = async (req, res) => {
     const newFavorite = await Favorite.create({ user_id, recipe_id, is_favourite, rating });
     res.status(201).json(newFavorite);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error adding favorite' });
   }
 };
@@ -50,6 +53,7 @@ const updateFavorite = async (req, res) => {
     await favorite.save();
     res.status(200).json(favorite);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error updating favorite' });
   }
 };
@@ -64,6 +68,7 @@ const deleteFavorite = async (req, res) => {
     await favorite.destroy();
     res.status(200).json({ message: 'Favorite deleted successfully' });
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error deleting favorite' });
   }
 };

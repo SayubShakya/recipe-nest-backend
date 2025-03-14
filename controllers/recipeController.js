@@ -6,6 +6,7 @@ const getAllRecipes = async (req, res) => {
     const recipes = await Recipe.findAll({ include: [Cuisine, User] });
     res.status(200).json(recipes);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error fetching recipes' });
   }
 };
@@ -19,6 +20,7 @@ const getRecipeById = async (req, res) => {
     }
     res.status(200).json(recipe);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error fetching recipe' });
   }
 };
@@ -30,6 +32,7 @@ const createRecipe = async (req, res) => {
     const newRecipe = await Recipe.create({ title, description, recipe, ingredients, cuisine, recipe_by, image_url });
     res.status(201).json(newRecipe);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error creating recipe' });
   }
 };
@@ -54,6 +57,7 @@ const updateRecipe = async (req, res) => {
     await recipeToUpdate.save();
     res.status(200).json(recipeToUpdate);
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error updating recipe' });
   }
 };
@@ -68,6 +72,7 @@ const deleteRecipe = async (req, res) => {
     await recipe.destroy();
     res.status(200).json({ message: 'Recipe deleted successfully' });
   } catch (err) {
+    console.error(err)
     res.status(500).json({ message: 'Error deleting recipe' });
   }
 };
